@@ -9,7 +9,6 @@ import {
   FormControl,
   useTheme,
   useMediaQuery,
-  colors,
 } from "@mui/material";
 import {
   Search,
@@ -32,6 +31,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
   const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
+
   const theme = useTheme();
   const neutralLight = theme.palette.neutral.light;
   const dark = theme.palette.neutral.dark;
@@ -39,14 +39,14 @@ const Navbar = () => {
   const primaryLight = theme.palette.primary.light;
   const alt = theme.palette.background.alt;
 
-  const fullName = `${user.firstName} ${user.lastName}`;
+  const fullName = `Hello`;
 
   return (
     <FlexBetween padding="1rem 6%" backgroundColor={alt}>
       <FlexBetween gap="1.75rem">
         <Typography
           fontWeight="bold"
-          fontSize="clamp(1rem,2rem,2.25rem)"
+          fontSize="clamp(1rem, 2rem, 2.25rem)"
           color="primary"
           onClick={() => navigate("/home")}
           sx={{
@@ -56,7 +56,7 @@ const Navbar = () => {
             },
           }}
         >
-          SocialMedia
+          Sociopedia
         </Typography>
         {isNonMobileScreens && (
           <FlexBetween
@@ -72,6 +72,7 @@ const Navbar = () => {
           </FlexBetween>
         )}
       </FlexBetween>
+
       {isNonMobileScreens ? (
         <FlexBetween gap="2rem">
           <IconButton onClick={() => dispatch(setMode())}>
@@ -84,7 +85,7 @@ const Navbar = () => {
           <Message sx={{ fontSize: "25px" }} />
           <Notifications sx={{ fontSize: "25px" }} />
           <Help sx={{ fontSize: "25px" }} />
-          <FormControl varient="standard" value={fullName}>
+          <FormControl variant="standard" value={fullName}>
             <Select
               value={fullName}
               sx={{
@@ -112,8 +113,11 @@ const Navbar = () => {
       ) : (
         <IconButton
           onClick={() => setIsMobileMenuToggled(!isMobileMenuToggled)}
-        ></IconButton>
+        >
+          <Menu />
+        </IconButton>
       )}
+
       {!isNonMobileScreens && isMobileMenuToggled && (
         <Box
           position="fixed"
@@ -123,7 +127,7 @@ const Navbar = () => {
           zIndex="10"
           maxWidth="500px"
           minWidth="300px"
-          background={background}
+          backgroundColor={background}
         >
           <Box display="flex" justifyContent="flex-end" p="1rem">
             <IconButton
@@ -132,8 +136,18 @@ const Navbar = () => {
               <Close />
             </IconButton>
           </Box>
-          <FlexBetween display="flex" flexDirection="column" justifyContent="center" alignItems="center" gap="3rem">
-            <IconButton onClick={() => dispatch(setMode())}>
+
+          <FlexBetween
+            display="flex"
+            flexDirection="column"
+            justifyContent="center"
+            alignItems="center"
+            gap="3rem"
+          >
+            <IconButton
+              onClick={() => dispatch(setMode())}
+              sx={{ fontSize: "25px" }}
+            >
               {theme.palette.mode === "dark" ? (
                 <DarkMode sx={{ fontSize: "25px" }} />
               ) : (
@@ -143,7 +157,7 @@ const Navbar = () => {
             <Message sx={{ fontSize: "25px" }} />
             <Notifications sx={{ fontSize: "25px" }} />
             <Help sx={{ fontSize: "25px" }} />
-            <FormControl varient="standard" value={fullName}>
+            <FormControl variant="standard" value={fullName}>
               <Select
                 value={fullName}
                 sx={{
